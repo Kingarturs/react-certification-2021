@@ -7,15 +7,7 @@ import Switch from '../../components/Switch';
 import { NavBar, Container, VideoCard } from './Home.styled';
 
 function HomePage() {
-  // const history = useHistory();
-  // const { authenticated, logout } = useAuth();
   const [active, setActive] = useState(false);
-
-  // function deAuthenticate(event) {
-  //   event.preventDefault();
-  //   logout();
-  //   history.push('/');
-  // }
 
   const lightTheme = {
     bg: 'white',
@@ -36,23 +28,6 @@ function HomePage() {
   };
 
   return (
-    // <section className="homepage" ref={sectionRef}>
-    //   <h1>Hello stranger!</h1>
-    //   {authenticated ? (
-    //     <>
-    //       <h2>Good to have you back</h2>
-    //       <span>
-    //         <Link to="/" onClick={deAuthenticate}>
-    //           ← logout
-    //         </Link>
-    //         <span className="separator" />
-    //         <Link to="/secret">show me something cool →</Link>
-    //       </span>
-    //     </>
-    //   ) : (
-    //     <Link to="/login">let me in →</Link>
-    //   )}
-    // </section>
     <>
       <NavBar theme={!active ? lightTheme : darkTheme}>
         <div className="left">
@@ -69,7 +44,7 @@ function HomePage() {
             onClick={() => setActive(!active)}
           />
           <input type="text" className="input" placeholder="Search" />
-          <Link to="/" type="button" className="login-button">
+          <Link to="/" className="login-button">
             Log in
           </Link>
         </div>
@@ -78,7 +53,12 @@ function HomePage() {
         {mockVideos.items.map((video) => {
           if (video.id.kind === 'youtube#video') {
             return (
-              <VideoCard key={video.etag} theme={!active ? lightTheme : darkTheme} to="/">
+              <VideoCard
+                key={video.etag}
+                theme={!active ? lightTheme : darkTheme}
+                to="/"
+                data-testid="video-card"
+              >
                 <img src={video.snippet.thumbnails.high.url} alt="thumbnail" />
                 <div className="video-data">
                   <p className="video-title">{video.snippet.title}</p>
