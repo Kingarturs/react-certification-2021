@@ -1,80 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import mockVideos from '../../mock/youtube-videos-mock.json';
-import Switch from '../../components/Switch';
-// import { useAuth } from '../../providers/Auth';
-
-import { NavBar, Container, VideoCard } from './Home.styled';
+import { Container } from './Home.styled';
+import NavBar from '../../components/NavBar';
+import VideoCard from '../../components/VideoCard';
+import useYoutubeApi from '../../hooks/useYoutubeApi';
+import useDebounce from '../../hooks/useDebounce';
+import { useTheme } from '../../providers/Theme';
 
 function HomePage() {
-  const [active, setActive] = useState(false);
+  const [search, setSearch] = useState('wizeline');
+  const { videos, fetchVideos } = useYoutubeApi();
+  const { theme } = useTheme();
 
-  const lightTheme = {
-    bg: 'white',
-    fg: '#272727',
-    secondaryFg: '#3a3a3a',
-    accent: '#1b9b9b',
-    hoverAccent: '#30C8C9',
-    border: '#dddddd',
-  };
-
-  const darkTheme = {
-    bg: '#1f2127',
-    fg: 'white',
-    secondaryFg: '#b3b3b3',
-    accent: '#30C8C9',
-    hoverAccent: '#1b9b9b',
-    border: '#3a3a3a',
-  };
+  useDebounce(() => {
+    fetchVideos(search);
+  }, [search]);
 
   return (
     <>
-      <NavBar theme={!active ? lightTheme : darkTheme}>
-        <div className="left">
-          <Link to="/" className="logo">
-            WizeTube
-          </Link>
-        </div>
-
-        <div className="right">
-          <Switch
-            theme={!active ? lightTheme : darkTheme}
-            size={1.8}
-            active={active}
-            onClick={() => setActive(!active)}
-          />
-          <input type="text" className="input" placeholder="Search" />
-          <Link to="/" className="login-button">
-            Log in
-          </Link>
-        </div>
-      </NavBar>
-      <Container theme={!active ? lightTheme : darkTheme}>
-        {mockVideos.items.map((video) => {
-          if (video.id.kind === 'youtube#video') {
-            return (
-              <VideoCard
-                key={video.etag}
-                theme={!active ? lightTheme : darkTheme}
-                to="/"
-                data-testid="video-card"
-              >
-                <img src={video.snippet.thumbnails.high.url} alt="thumbnail" />
-                <div className="video-data">
-                  <p className="video-title">{video.snippet.title}</p>
-                  <p className="video-channel">{video.snippet.channelTitle}</p>
-                  <p className="video-description">
-                    {video.snippet.description !== ''
-                      ? video.snippet.description
-                      : 'No description'}
-                  </p>
-                </div>
-              </VideoCard>
-            );
-          }
-
-          return null;
-        })}
+      <NavBar search setSearch={setSearch} />
+      <Container theme={theme} data-testid="navbar">
+        {!videos ? (
+          <Container theme={theme} />
+        ) : (
+          videos.items.map((video) => {
+            return <VideoCard theme={theme} video={video} key={video.etag} />;
+          })
+        )}
       </Container>
     </>
   );
