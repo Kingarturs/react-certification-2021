@@ -20,8 +20,12 @@ function VideoDetails() {
   const { theme } = useTheme();
 
   useEffect(() => {
-    fetchVideoInfo(id);
-    fetchRelatedVideos(id);
+    const fetchData = () => {
+      fetchVideoInfo(id);
+      fetchRelatedVideos(id);
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (

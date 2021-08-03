@@ -15,7 +15,8 @@ const useDebounce = (handler, dependencies = [], delay = 300) => {
     return () => {
       clearTimeout(interval.current);
     };
-  }, dependencies);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...dependencies]);
 };
 
 export default useDebounce;
