@@ -13,6 +13,7 @@ import {
 import useYoutubeApi from '../../hooks/useYoutubeApi';
 import { useTheme } from '../../providers/Theme';
 import RealtedVideo from '../../components/RelatedVideo';
+import MobileMenu from '../../components/MobileMenu';
 
 function VideoDetails() {
   const { id } = useParams();
@@ -31,12 +32,16 @@ function VideoDetails() {
   return (
     <>
       <NavBar />
+      <MobileMenu />
+
       {!!video && (
         <VideoDetailsContainer theme={theme}>
           <VideoContainer>
             <YoutubeEmbed embedId={id} data-testid="embed-video" />
             <VideoInfo>
-              <Title data-testid="title">{video.items[0].snippet.title}</Title>
+              <Title data-testid="title" theme={theme}>
+                {video.items[0].snippet.title}
+              </Title>
               <Description theme={theme} data-testid="description">
                 {video.items[0].snippet.description}
               </Description>

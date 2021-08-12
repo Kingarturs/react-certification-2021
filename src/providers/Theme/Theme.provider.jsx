@@ -6,7 +6,7 @@ const ThemeContext = React.createContext(null);
 function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error(`Can't use "useAuth" without an ThemeProvider!`);
+    throw new Error(`Can't use "useTheme" without an ThemeProvider!`);
   }
   return context;
 }

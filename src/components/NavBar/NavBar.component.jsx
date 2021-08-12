@@ -3,16 +3,21 @@ import Switch from '../Switch';
 import {
   NavBarContainer,
   NavBarSection,
+  OptionsSection,
+  MobileSection,
   Logo,
   LoginButton,
   SearchBar,
+  HamburgerIcon,
 } from './NavBar.styled';
 import { useTheme } from '../../providers/Theme';
+import { useMenu } from '../../providers/Menu';
 import { DarkTheme } from '../../utils/theme';
 
 function NavBar(props) {
   const { setSearch, search } = props;
   const { theme, switchTheme } = useTheme();
+  const { switchOpen } = useMenu();
   const [active, setActive] = useState(() => theme === DarkTheme);
 
   return (
@@ -23,7 +28,11 @@ function NavBar(props) {
         </Logo>
       </NavBarSection>
 
-      <NavBarSection>
+      <MobileSection>
+        <HamburgerIcon theme={theme} className="fas fa-bars" onClick={switchOpen} />
+      </MobileSection>
+
+      <OptionsSection>
         <Switch
           theme={theme}
           size={1.8}
@@ -45,7 +54,7 @@ function NavBar(props) {
         <LoginButton to="#" theme={theme} data-testid="login-button">
           Log in
         </LoginButton>
-      </NavBarSection>
+      </OptionsSection>
     </NavBarContainer>
   );
 }
