@@ -9,6 +9,7 @@ export const VideoDetailsContainer = styled.div`
 
   @media screen and (max-width: 1000px) {
     flex-direction: column;
+    padding: 0rem;
   }
 `;
 
@@ -37,6 +38,7 @@ export const Title = styled.p`
   width: 100%;
   font-weight: bold;
   font-size: 1.5rem;
+  color: ${({ theme }) => theme.fg};
 `;
 
 export const Description = styled.pre`

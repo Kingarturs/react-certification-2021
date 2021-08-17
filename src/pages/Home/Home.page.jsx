@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from './Home.styled';
-import NavBar from '../../components/NavBar';
 import VideoCard from '../../components/VideoCard';
 import useYoutubeApi from '../../hooks/useYoutubeApi';
 import useDebounce from '../../hooks/useDebounce';
-import { useTheme } from '../../providers/Theme';
+import { useGlobal } from '../../providers/GlobalContext';
+import Loader from '../../components/Loader';
 
 function HomePage() {
-  const [search, setSearch] = useState('wizeline');
-  const { videos, fetchVideos } = useYoutubeApi();
-  const { theme } = useTheme();
+  const { videos, fetchVideos, loading } = useYoutubeApi();
+  const { state } = useGlobal();
+  const { theme, search } = state;
 
   useDebounce(() => {
     fetchVideos(search);
   }, [search]);
 
+  if (loading) return <Loader />;
+
   return (
     <>
-      <NavBar search setSearch={setSearch} />
       <Container theme={theme} data-testid="navbar">
         {!videos ? (
           <Container theme={theme} />

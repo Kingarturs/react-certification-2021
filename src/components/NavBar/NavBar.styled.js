@@ -33,6 +33,20 @@ export const NavBarSection = styled.div`
   align-items: center;
 `;
 
+export const OptionsSection = styled(NavBarSection)`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const MobileSection = styled(NavBarSection)`
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+`;
+
 export const Logo = styled(Link)`
   font-size: 1.3rem;
   font-weight: bold;
@@ -57,5 +71,16 @@ export const LoginButton = styled(Link)`
   &:hover {
     cursor: pointer;
     background-color: ${(props) => props.theme.hoverAccent};
+  }
+`;
+
+export const HamburgerIcon = styled.i`
+  font-size: large;
+  color: ${(props) => props.theme.fg};
+  padding: 0.5rem;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: ${(props) => props.theme.border};
   }
 `;

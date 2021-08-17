@@ -14,7 +14,7 @@ const useYoutubeApi = () => {
     try {
       const fetched = await axios(
         `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20${
-          query !== '' ? `&q=${query}` : ''
+          query !== '' ? `&q=${query}` : '&q=wizeline'
         }&key=${key}&type=video`
       );
       setVideos(fetched.data);

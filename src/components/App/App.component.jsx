@@ -3,13 +3,18 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AuthProvider from '../../providers/Auth';
 import HomePage from '../../pages/Home';
 import VideoDetails from '../../pages/VideoDetails';
-import ThemeProvider from '../../providers/Theme';
+import NavBar from '../NavBar';
+import MobileMenu from '../MobileMenu';
+import GlobalProvider from '../../providers/GlobalContext';
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <ThemeProvider>
+        <GlobalProvider>
+          <NavBar />
+          <MobileMenu />
+
           <Switch>
             <Route exact path="/">
               <HomePage />
@@ -18,7 +23,7 @@ function App() {
               <VideoDetails />
             </Route>
           </Switch>
-        </ThemeProvider>
+        </GlobalProvider>
       </AuthProvider>
     </BrowserRouter>
   );
