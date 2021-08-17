@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Menu = styled.div`
   width: ${(props) => (props.open ? 100 : 0)}%;
   transition: all 0.2s ease-out;
-  height: 100vh;
+  height: calc(100vh - 3.5rem);
   background-color: ${(props) => props.theme.bg};
   box-sizing: border-box;
   display: none;

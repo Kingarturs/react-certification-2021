@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import YoutubeEmbed from '../../components/YoutubeEmbed';
-import NavBar from '../../components/NavBar';
 import {
   VideoDetailsContainer,
   VideoContainer,
@@ -11,14 +10,14 @@ import {
   RelatedContainer,
 } from './VideoDetails.styled';
 import useYoutubeApi from '../../hooks/useYoutubeApi';
-import { useTheme } from '../../providers/Theme';
 import RealtedVideo from '../../components/RelatedVideo';
-import MobileMenu from '../../components/MobileMenu';
+import { useGlobal } from '../../providers/GlobalContext';
 
 function VideoDetails() {
   const { id } = useParams();
   const { video, related, fetchRelatedVideos, fetchVideoInfo } = useYoutubeApi();
-  const { theme } = useTheme();
+  const { state } = useGlobal();
+  const { theme } = state;
 
   useEffect(() => {
     const fetchData = () => {
@@ -31,9 +30,6 @@ function VideoDetails() {
 
   return (
     <>
-      <NavBar />
-      <MobileMenu />
-
       {!!video && (
         <VideoDetailsContainer theme={theme}>
           <VideoContainer>
@@ -50,7 +46,7 @@ function VideoDetails() {
           {!!related && (
             <RelatedContainer data-testid="related-video">
               {related.items.map((rel) => {
-                return <RealtedVideo video={rel} key={rel.id.videoId} />;
+                return rel.snippet && <RealtedVideo video={rel} key={rel.id.videoId} />;
               })}
             </RelatedContainer>
           )}

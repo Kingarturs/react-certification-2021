@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '../../providers/Theme';
 import {
   Related,
   RelatedVideoImage,
@@ -7,9 +6,11 @@ import {
   RelatedVideoTitle,
   RelatedVideoChannel,
 } from './RelatedVideo.styled';
+import { useGlobal } from '../../providers/GlobalContext';
 
 function RelatedVideo({ video }) {
-  const { theme } = useTheme();
+  const { state } = useGlobal();
+  const { theme } = state;
 
   return (
     <Related to={video.id.videoId} theme={theme}>
@@ -18,8 +19,11 @@ function RelatedVideo({ video }) {
         alt={video.snippet.title}
       />
       <RelatedVideoData>
-        <RelatedVideoTitle>{video.snippet.title}</RelatedVideoTitle>
-        <RelatedVideoChannel theme={theme}>
+        <RelatedVideoTitle aria-label="title">{`${video.snippet.title.substr(
+          0,
+          25
+        )}...`}</RelatedVideoTitle>
+        <RelatedVideoChannel theme={theme} aria-label="channel">
           {video.snippet.channelTitle}
         </RelatedVideoChannel>
       </RelatedVideoData>

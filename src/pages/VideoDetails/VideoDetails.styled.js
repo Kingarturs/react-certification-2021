@@ -9,6 +9,7 @@ export const VideoDetailsContainer = styled.div`
 
   @media screen and (max-width: 1000px) {
     flex-direction: column;
+    padding: 0rem;
   }
 `;
 

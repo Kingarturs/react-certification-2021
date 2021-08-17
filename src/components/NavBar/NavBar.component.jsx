@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Switch from '../Switch';
 import {
   NavBarContainer,
@@ -10,15 +10,13 @@ import {
   SearchBar,
   HamburgerIcon,
 } from './NavBar.styled';
-import { useTheme } from '../../providers/Theme';
-import { useMenu } from '../../providers/Menu';
-import { DarkTheme } from '../../utils/theme';
+import { useGlobal } from '../../providers/GlobalContext';
+import { operationTypes } from '../../utils/stateOperations';
 
-function NavBar(props) {
-  const { setSearch, search } = props;
-  const { theme, switchTheme } = useTheme();
-  const { switchOpen } = useMenu();
-  const [active, setActive] = useState(() => theme === DarkTheme);
+function NavBar() {
+  const { state, dispatch } = useGlobal();
+  const { theme, darkMode } = state;
+  const { SWITCH_THEME, SWITCH_MENU, SET_SEARCH } = operationTypes;
 
   return (
     <NavBarContainer theme={theme}>
@@ -29,28 +27,48 @@ function NavBar(props) {
       </NavBarSection>
 
       <MobileSection>
-        <HamburgerIcon theme={theme} className="fas fa-bars" onClick={switchOpen} />
+        <HamburgerIcon
+          theme={theme}
+          className="fas fa-bars"
+          onClick={() => {
+            const switchMenuAction = {
+              type: SWITCH_MENU,
+            };
+
+            dispatch(switchMenuAction);
+          }}
+        />
       </MobileSection>
 
       <OptionsSection>
         <Switch
           theme={theme}
           size={1.8}
-          active={active}
+          active={darkMode}
           onClick={() => {
-            switchTheme();
-            setActive(!active);
+            const switchThemeAction = {
+              type: SWITCH_THEME,
+            };
+
+            dispatch(switchThemeAction);
           }}
         />
-        {search ? (
-          <SearchBar
-            theme={theme}
-            type="text"
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search"
-            data-testid="Search"
-          />
-        ) : null}
+
+        <SearchBar
+          theme={theme}
+          type="text"
+          onChange={(e) => {
+            const setSearchAction = {
+              type: SET_SEARCH,
+              payload: e.target.value,
+            };
+
+            dispatch(setSearchAction);
+          }}
+          placeholder="Search"
+          data-testid="Search"
+        />
+
         <LoginButton to="#" theme={theme} data-testid="login-button">
           Log in
         </LoginButton>

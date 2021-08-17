@@ -1,45 +1,52 @@
-import React, { useState } from 'react';
-import { useMenu } from '../../providers/Menu';
-import { useTheme } from '../../providers/Theme';
+import React from 'react';
 import Switch from '../Switch';
-import { DarkTheme } from '../../utils/theme';
-
 import { Menu, MenuItem, SearchBar, DarkModeText } from './MobileMenu.styled';
 import { LoginButton } from '../NavBar/NavBar.styled';
+import { useGlobal } from '../../providers/GlobalContext';
+import { operationTypes } from '../../utils/stateOperations';
 
-function MobileMenu(props) {
-  const { search, setSearch } = props;
-  const { openMenu } = useMenu();
-  const { theme, switchTheme } = useTheme();
-  const [active, setActive] = useState(() => theme === DarkTheme);
+function MobileMenu() {
+  const { state, dispatch } = useGlobal();
+  const { darkMode, menu, theme } = state;
+  const { SWITCH_THEME, SET_SEARCH } = operationTypes;
+
+  const switchTheme = () => {
+    const switchThemeAction = {
+      type: SWITCH_THEME,
+    };
+
+    dispatch(switchThemeAction);
+  };
+
+  const setSearch = (searchTerm) => {
+    const setSearchAction = {
+      type: SET_SEARCH,
+      payload: searchTerm,
+    };
+
+    dispatch(setSearchAction);
+  };
 
   return (
-    <Menu open={openMenu} theme={theme}>
+    <Menu open={menu} theme={theme}>
       <MenuItem>
         <DarkModeText theme={theme}> Dark mode </DarkModeText>
-        <Switch
-          active={active}
-          size={1.8}
-          onClick={() => {
-            switchTheme();
-            setActive(!active);
-          }}
+        <Switch active={darkMode} size={1.8} onClick={switchTheme} theme={theme} />
+      </MenuItem>
+
+      <MenuItem>
+        <SearchBar
+          onChange={(e) => setSearch(e.target.value)}
+          type="text"
+          placeholder="Search"
           theme={theme}
         />
       </MenuItem>
-      {search ? (
-        <MenuItem>
-          <SearchBar
-            onChange={(e) => setSearch(e.target.value)}
-            type="text"
-            placeholder="Search"
-            theme={theme}
-          />
-        </MenuItem>
-      ) : null}
 
       <MenuItem>
-        <LoginButton theme={theme}>Log in</LoginButton>
+        <LoginButton to="#" theme={theme}>
+          Log in
+        </LoginButton>
       </MenuItem>
     </Menu>
   );
