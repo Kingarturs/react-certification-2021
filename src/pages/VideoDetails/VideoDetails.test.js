@@ -1,17 +1,17 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
-import ThemeProvider from '../../providers/Theme';
 import VideoDetails from './VideoDetails.page';
+import GlobalProvider from '../../providers/GlobalContext';
 
 beforeEach(() => {
   render(
     <MemoryRouter initialEntries={['/2l4alp0De8Y']}>
-      <ThemeProvider>
+      <GlobalProvider>
         <Route path="/:id">
           <VideoDetails />
         </Route>
-      </ThemeProvider>
+      </GlobalProvider>
     </MemoryRouter>
   );
 });
