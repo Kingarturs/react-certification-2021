@@ -1,30 +1,39 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import AuthProvider from '../../providers/Auth';
+import { Toaster } from 'react-hot-toast';
+import GlobalProvider from '../../providers/GlobalContext';
 import HomePage from '../../pages/Home';
 import VideoDetails from '../../pages/VideoDetails';
 import NavBar from '../NavBar';
 import MobileMenu from '../MobileMenu';
-import GlobalProvider from '../../providers/GlobalContext';
+import Login from '../../pages/Login';
+import Signup from '../../pages/Signup';
+import Private from '../Private';
+import Favorites from '../../pages/Favorites';
 
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <GlobalProvider>
-          <NavBar />
-          <MobileMenu />
+      <GlobalProvider>
+        <Toaster />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
 
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route path="/:id">
-              <VideoDetails />
-            </Route>
-          </Switch>
-        </GlobalProvider>
-      </AuthProvider>
+          <Route path="/">
+            <NavBar />
+            <MobileMenu />
+
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Private exact path="/favorites">
+                <Favorites />
+              </Private>
+              <Route path="/:id" component={VideoDetails} />
+            </Switch>
+          </Route>
+        </Switch>
+      </GlobalProvider>
     </BrowserRouter>
   );
 }
