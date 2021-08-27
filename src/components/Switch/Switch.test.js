@@ -10,7 +10,7 @@ describe('Switch component', () => {
         <Switch />
       </GlobalProvider>
     );
-    const SwitchElement = await screen.findByTestId('switch-theme');
+    const SwitchElement = await screen.findByTitle('switch-theme');
 
     expect(SwitchElement).toBeInTheDocument();
   });

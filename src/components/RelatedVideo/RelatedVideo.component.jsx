@@ -13,7 +13,7 @@ function RelatedVideo({ video }) {
   const { theme } = state;
 
   return (
-    <Related to={video.id.videoId} theme={theme}>
+    <Related to={video.id.videoId} theme={theme} title="related-video">
       <RelatedVideoImage
         src={video.snippet.thumbnails.medium.url}
         alt={video.snippet.title}

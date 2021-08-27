@@ -13,7 +13,7 @@ beforeEach(() => {
 
 describe('Loader component', () => {
   it('should render correctly', async () => {
-    const LoaderElement = await screen.findByTestId('loader');
+    const LoaderElement = await screen.findByTitle('loader');
 
     expect(LoaderElement).toBeInTheDocument();
   });

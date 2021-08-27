@@ -1,4 +1,5 @@
 import React from 'react';
+import { useGlobal } from '../../providers/GlobalContext';
 import {
   VideoCardContainer,
   VideoCardImage,
@@ -9,15 +10,19 @@ import {
 } from './VideoCard.styled';
 
 function VideoCard(props) {
-  const { video, theme } = props;
+  const { state } = useGlobal();
+  const { video } = props;
+  const { theme } = state;
 
   return (
-    <VideoCardContainer theme={theme} to={video.id.videoId} data-testid="video-card">
-      <VideoCardImage src={video.snippet.thumbnails.high.url} alt="thumbnail" />
+    <VideoCardContainer theme={theme} to={video.id.videoId} title="video-card">
+      <VideoCardImage src={video.snippet.thumbnails.high.url} alt={video.snippet.title} />
       <DataContainer theme={theme}>
-        <Title>{video.snippet.title}</Title>
-        <Channel theme={theme}>{video.snippet.channelTitle}</Channel>
-        <Description theme={theme}>
+        <Title title="title">{video.snippet.title}</Title>
+        <Channel title="channel" theme={theme}>
+          {video.snippet.channelTitle}
+        </Channel>
+        <Description title="description" theme={theme}>
           {video.snippet.description !== ''
             ? video.snippet.description
             : 'No description'}

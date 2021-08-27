@@ -29,7 +29,7 @@ function App() {
               <Private exact path="/favorites">
                 <Favorites />
               </Private>
-              <Route path="/:id" component={VideoDetails} />
+              <Route exact path="/:id" component={VideoDetails} />
             </Switch>
           </Route>
         </Switch>

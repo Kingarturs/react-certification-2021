@@ -1,12 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route } from 'react-router-dom';
 import VideoDetails from './VideoDetails.page';
 import GlobalProvider from '../../providers/GlobalContext';
 
 beforeEach(() => {
   render(
-    <MemoryRouter initialEntries={['/2l4alp0De8Y']}>
+    <MemoryRouter initialEntries={['/nmXMgqjQzls']}>
       <GlobalProvider>
         <Route path="/:id">
           <VideoDetails />
@@ -17,43 +17,33 @@ beforeEach(() => {
 });
 
 describe('Video details page', () => {
-  test('should contain the logo', () => {
-    const LogoElement = screen.queryByText(/wizetube/i);
-
-    expect(LogoElement).toBeInTheDocument();
-  });
-
-  test('should contain a search input', () => {
-    const SearchInput = screen.queryByTestId('Search');
-
-    expect(SearchInput).toBeInTheDocument();
-  });
-
-  test('should contain a title for the video', () => {
-    const TitleElement = screen.queryByTestId('title');
+  test('should contain a title for the video', async () => {
+    const TitleElement = await screen.findByTitle('title');
 
     expect(TitleElement).toBeInTheDocument();
   });
 
-  test('should contain a description for the video', () => {
-    const DescriptionElement = screen.queryByTestId('description');
+  test('should contain a description for the video', async () => {
+    const DescriptionElement = await screen.findByTitle('description');
 
     expect(DescriptionElement).toBeInTheDocument();
   });
 
-  test('should contain a login button', () => {
-    const LoginButton = screen.queryByTestId('login-button');
-
-    expect(LoginButton).toBeInTheDocument();
-  });
-
-  test('should render de youtube video', () => {
-    const YoutubeVideo = screen.queryByTestId('embed-video');
+  test('should render de youtube video', async () => {
+    const YoutubeVideo = await screen.findByTitle('Embedded youtube');
 
     expect(YoutubeVideo).toBeInTheDocument();
   });
 
   test('should render 10 related video cards', async () => {
-    await waitFor(() => expect(screen.queryAllByTestId('related-video').length).toBe(10));
+    const RelatedVideos = await screen.findAllByTitle('related-video');
+
+    expect(RelatedVideos.length).toBe(10);
+  });
+
+  test('should render de add video to favorites button', async () => {
+    const AddFavoritesIcon = await screen.findByTitle('add-favorite-icon');
+
+    expect(AddFavoritesIcon).toBeInTheDocument();
   });
 });

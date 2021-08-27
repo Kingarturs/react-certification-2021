@@ -8,7 +8,7 @@ function Loader() {
   const { theme } = state;
 
   return (
-    <LoaderContainer theme={theme} data-testid="loader">
+    <LoaderContainer theme={theme} title="loader">
       <LoaderElement theme={theme} />
     </LoaderContainer>
   );

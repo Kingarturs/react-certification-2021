@@ -13,18 +13,20 @@ function HomePage() {
 
   useDebounce(() => {
     fetchVideos(search);
+
+    return () => fetchVideos();
   }, [search]);
 
   if (loading) return <Loader />;
 
   return (
     <>
-      <Container theme={theme}>
+      <Container theme={theme} data-testid="main-container">
         {!videos ? (
           <EmptyContainer />
         ) : (
           videos.items.map((video) => {
-            return <VideoCard theme={theme} video={video} key={video.etag} />;
+            return <VideoCard video={video} key={video.etag} />;
           })
         )}
       </Container>

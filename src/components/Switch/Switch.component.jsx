@@ -10,7 +10,7 @@ function Switch(props) {
       theme={theme}
       size={size}
       active={active}
-      data-testid="switch-theme"
+      title="switch-theme"
     >
       <SwitchKnob theme={theme} size={size} active={active} />
     </SwitchContainer>

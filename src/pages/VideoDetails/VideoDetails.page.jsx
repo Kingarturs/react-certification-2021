@@ -15,7 +15,7 @@ import {
   VideoHead,
 } from './VideoDetails.styled';
 import useYoutubeApi from '../../hooks/useYoutubeApi';
-import RealtedVideo from '../../components/RelatedVideo';
+import RelatedVideo from '../../components/RelatedVideo';
 import { useGlobal } from '../../providers/GlobalContext';
 import { db } from '../../firebase';
 import useFavorite from '../../hooks/useFavorite';
@@ -116,37 +116,39 @@ function VideoDetails() {
       {!!video && (
         <VideoDetailsContainer>
           <VideoContainer>
-            <YoutubeEmbed embedId={id} data-testid="embed-video" />
+            <YoutubeEmbed embedId={id} />
             <VideoInfo>
               <VideoHead>
-                <Title data-testid="title" theme={theme}>
+                <Title title="title" theme={theme}>
                   {video.items[0].snippet.title}
                 </Title>
 
                 {isFavorite ? (
                   <RemoveFavoriteIcon
                     className="fas fa-heart"
+                    title="remove-favorite-icon"
                     theme={theme}
                     onClick={() => removeFromFavorites(video.items[0].id)}
                   />
                 ) : (
                   <AddFavoriteIcon
                     className="fas fa-heart"
+                    title="add-favorite-icon"
                     theme={theme}
                     onClick={() => addToFavorites(video.items[0])}
                   />
                 )}
               </VideoHead>
 
-              <Description theme={theme} data-testid="description">
+              <Description theme={theme} title="description">
                 {video.items[0].snippet.description}
               </Description>
             </VideoInfo>
           </VideoContainer>
           {!!related && (
-            <RelatedContainer data-testid="related-video">
+            <RelatedContainer>
               {related.items.map((rel) => {
-                return rel.snippet && <RealtedVideo video={rel} key={rel.id.videoId} />;
+                return rel.snippet && <RelatedVideo video={rel} key={rel.id.videoId} />;
               })}
             </RelatedContainer>
           )}
