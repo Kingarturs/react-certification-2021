@@ -10,7 +10,7 @@ export const NavBarContainer = styled.div`
   align-items: center;
   padding: 0 2rem;
   justify-content: space-between;
-  border: 1px solid ${(props) => props.theme.border};
+  border-bottom: 1px solid ${(props) => props.theme.border};
 `;
 
 export const SearchBar = styled.input`
@@ -83,4 +83,29 @@ export const HamburgerIcon = styled.i`
   &:hover {
     background-color: ${(props) => props.theme.border};
   }
+`;
+
+export const UserIcon = styled.i`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: ${(props) => props.theme.border};
+    cursor: pointer;
+  }
+`;
+
+export const MenuIcon = styled.i`
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+`;
+
+export const FavoritesLink = styled(Link)`
+  text-decoration: none;
+  color: ${(props) => props.theme.fg};
 `;

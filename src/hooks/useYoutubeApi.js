@@ -7,7 +7,7 @@ const useYoutubeApi = () => {
   const [related, setRelated] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const key = process.env.REACT_APP_API_KEY;
+  const key = process.env.REACT_APP_YOUTUBE_API_KEY;
 
   const fetchVideos = async (query) => {
     setLoading(true);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from './Home.styled';
+import { Container, EmptyContainer } from './Home.styled';
 import VideoCard from '../../components/VideoCard';
 import useYoutubeApi from '../../hooks/useYoutubeApi';
 import useDebounce from '../../hooks/useDebounce';
@@ -13,18 +13,20 @@ function HomePage() {
 
   useDebounce(() => {
     fetchVideos(search);
+
+    return () => fetchVideos();
   }, [search]);
 
   if (loading) return <Loader />;
 
   return (
     <>
-      <Container theme={theme} data-testid="navbar">
+      <Container theme={theme} data-testid="main-container">
         {!videos ? (
-          <Container theme={theme} />
+          <EmptyContainer />
         ) : (
           videos.items.map((video) => {
-            return <VideoCard theme={theme} video={video} key={video.etag} />;
+            return <VideoCard video={video} key={video.etag} />;
           })
         )}
       </Container>

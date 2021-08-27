@@ -1,4 +1,5 @@
 import React from 'react';
+import { Menu, MenuItem } from '@szhsin/react-menu';
 import Switch from '../Switch';
 import {
   NavBarContainer,
@@ -9,12 +10,19 @@ import {
   LoginButton,
   SearchBar,
   HamburgerIcon,
+  UserIcon,
+  MenuIcon,
+  FavoritesLink,
 } from './NavBar.styled';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
 import { useGlobal } from '../../providers/GlobalContext';
 import { operationTypes } from '../../utils/stateOperations';
 
 function NavBar() {
-  const { state, dispatch } = useGlobal();
+  const { state, dispatch, authState } = useGlobal();
+
+  const { currentUser, signout } = authState;
   const { theme, darkMode } = state;
   const { SWITCH_THEME, SWITCH_MENU, SET_SEARCH } = operationTypes;
 
@@ -69,9 +77,45 @@ function NavBar() {
           data-testid="Search"
         />
 
-        <LoginButton to="#" theme={theme} data-testid="login-button">
-          Log in
-        </LoginButton>
+        {currentUser !== null ? (
+          <Menu
+            menuButton={<UserIcon theme={theme} className="fas fa-user" />}
+            align="end"
+            offsetY={8}
+            menuStyles={{
+              backgroundColor: theme.bg,
+              color: theme.fg,
+              border: `1px solid ${theme.border}`,
+            }}
+            transition
+          >
+            <MenuItem styles={{ hover: { backgroundColor: theme.border } }}>
+              <FavoritesLink to="/" theme={theme}>
+                <MenuIcon className="fas fa-home" />
+                <span>Home</span>
+              </FavoritesLink>
+            </MenuItem>
+
+            <MenuItem styles={{ hover: { backgroundColor: theme.border } }}>
+              <FavoritesLink to="/favorites" theme={theme}>
+                <MenuIcon className="fas fa-heart" />
+                <span>Favorites</span>
+              </FavoritesLink>
+            </MenuItem>
+
+            <MenuItem
+              styles={{ hover: { backgroundColor: theme.border }, color: theme.danger }}
+              onClick={signout}
+            >
+              <MenuIcon className="fas fa-sign-out-alt" />
+              <span>Log out</span>
+            </MenuItem>
+          </Menu>
+        ) : (
+          <LoginButton to="/login" theme={theme} data-testid="login-button">
+            Log in
+          </LoginButton>
+        )}
       </OptionsSection>
     </NavBarContainer>
   );

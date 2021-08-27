@@ -34,7 +34,7 @@ describe('NavBar component', () => {
   });
 
   it('should render the theme switch', async () => {
-    const SwitchElement = await screen.findByTestId('switch-theme');
+    const SwitchElement = await screen.findByTitle('switch-theme');
 
     expect(SwitchElement).toBeInTheDocument();
   });

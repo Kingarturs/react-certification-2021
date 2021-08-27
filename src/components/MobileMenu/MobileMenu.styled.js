@@ -25,14 +25,36 @@ export const MenuItem = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  padding: 0.5rem 0;
 
   &:hover {
     opacity: 0.8;
   }
 `;
 
+export const NavItemContainer = styled.div`
+  width: 100%;
+  height: calc(100% - 7rem);
+`;
+
+export const NavItem = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.theme.fg};
+  text-decoration: none;
+  height: 3rem;
+  padding: 0.5rem;
+
+  &:hover {
+    background-color: ${(props) => props.theme.border};
+  }
+`;
+
 export const DarkModeText = styled.span`
   color: ${(props) => props.theme.fg};
+  margin-left: 0.5rem;
 `;
 
 export const SearchBar = styled.input`

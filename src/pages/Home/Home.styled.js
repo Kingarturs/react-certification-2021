@@ -12,3 +12,9 @@ export const Container = styled.div`
   overflow-y: auto;
   background-color: ${({ theme }) => theme.bg};
 `;
+
+export const EmptyContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+`;

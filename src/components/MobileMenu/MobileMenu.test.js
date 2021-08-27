@@ -28,8 +28,16 @@ describe('Mobile menu component', () => {
   });
 
   it('should render the theme switch', async () => {
-    const SwitchElement = await screen.findByTestId('switch-theme');
+    const SwitchElement = await screen.findByTitle('switch-theme');
 
     expect(SwitchElement).toBeInTheDocument();
+  });
+
+  it('should render the navigation items', async () => {
+    const FavoritesLink = await screen.findByText(/Favorites/i);
+    const HomeLink = await screen.findByText(/Home/i);
+
+    expect(FavoritesLink).toBeInTheDocument();
+    expect(HomeLink).toBeInTheDocument();
   });
 });
