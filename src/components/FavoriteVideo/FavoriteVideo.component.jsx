@@ -16,7 +16,7 @@ function FavoriteVideo({ favorite }) {
   const { theme } = state;
 
   return (
-    <FavoriteVideoContainer to={`/${favorite.id}`} theme={theme}>
+    <FavoriteVideoContainer to={`/${favorite.id}`} theme={theme} title="favorite">
       <FavoriteVideoImage src={favorite.thumbnail} alt={favorite.title} />
       <VideoInfoContainer>
         <FavoriteTitle>{favorite.title}</FavoriteTitle>
