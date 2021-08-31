@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import GlobalProvider from '../../providers/GlobalContext';
 import HomePage from '../../pages/Home';
@@ -13,7 +13,7 @@ import Favorites from '../../pages/Favorites';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <GlobalProvider>
         <Toaster />
         <Switch>
@@ -34,7 +34,7 @@ function App() {
           </Route>
         </Switch>
       </GlobalProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
