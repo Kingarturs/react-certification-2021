@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, MenuItem } from '@szhsin/react-menu';
+import { useLocation, useHistory } from 'react-router';
 import Switch from '../Switch';
 import {
   NavBarContainer,
@@ -25,6 +26,9 @@ function NavBar() {
   const { currentUser, signout } = authState;
   const { theme, darkMode } = state;
   const { SWITCH_THEME, SWITCH_MENU, SET_SEARCH } = operationTypes;
+
+  const currentLocation = useLocation();
+  const history = useHistory();
 
   return (
     <NavBarContainer theme={theme}>
@@ -70,6 +74,10 @@ function NavBar() {
               type: SET_SEARCH,
               payload: e.target.value,
             };
+
+            if (currentLocation !== '/') {
+              history.push('/');
+            }
 
             dispatch(setSearchAction);
           }}

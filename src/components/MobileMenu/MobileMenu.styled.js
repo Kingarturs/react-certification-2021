@@ -57,6 +57,11 @@ export const DarkModeText = styled.span`
   margin-left: 0.5rem;
 `;
 
+export const DangerModeText = styled.span`
+  color: ${(props) => props.theme.danger};
+  margin-left: 0.5rem;
+`;
+
 export const SearchBar = styled.input`
   font-size: 1rem;
   width: 16rem;

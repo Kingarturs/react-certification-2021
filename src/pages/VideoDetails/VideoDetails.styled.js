@@ -83,6 +83,7 @@ export const AddFavoriteIcon = styled.i`
   align-items: center;
   border-radius: 50%;
   width: 2.5rem;
+  height: 2.5rem;
   color: ${(props) => props.theme.fg};
 
   &:hover {

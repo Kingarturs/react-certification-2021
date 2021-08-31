@@ -13,6 +13,8 @@ const useFavorite = () => {
       const fetched = await db.collection(userUID).doc(videoID).get();
       if (fetched.exists) {
         setIsFavorite(true);
+      } else {
+        setIsFavorite(false);
       }
     } catch (err) {
       setError(err);
